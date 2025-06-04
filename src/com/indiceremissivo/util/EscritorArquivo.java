@@ -8,16 +8,20 @@ import java.util.List;
 import com.indiceremissivo.model.Palavra;
 
 /**
- * Classe utilitária para escrita de arquivos.
+ * Utilitário para escrever o índice remissivo em arquivo texto.
  */
+
 public class EscritorArquivo {
-    
+
     /**
-     * Escreve o índice remissivo em um arquivo.
-     * @param caminhoArquivo Caminho do arquivo de saída
-     * @param indice Lista de palavras do índice remissivo
-     * @throws IOException Se ocorrer um erro na escrita do arquivo
+     * Escreve o índice remissivo em arquivo.
+     * Cada linha do arquivo conterá uma palavra seguida das linhas em que ocorre.
+     * 
+     * @param caminhoArquivo Caminho do arquivo de saída.
+     * @param indice         Lista de palavras com suas ocorrências.
+     * @throws IOException Em caso de erro na escrita do arquivo.
      */
+
     public static void escreverIndiceRemissivo(String caminhoArquivo, List<Palavra> indice) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
             for (Palavra palavra : indice) {

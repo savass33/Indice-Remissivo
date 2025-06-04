@@ -3,47 +3,52 @@ package com.indiceremissivo.estruturas;
 import com.indiceremissivo.model.Palavra;
 import java.util.function.Consumer;
 
+
 /**
- * Implementação de uma Árvore Binária de Busca para armazenar palavras.
+ * Classe que representa uma Árvore Binária de Busca (ABB) para armazenar objetos do tipo Palavra.
+ * 
+ * A árvore é organizada de forma que, para cada nó, as palavras menores (alfabeticamente) 
+ * ficam na subárvore esquerda, e as maiores ficam na subárvore direita. 
+ * Isso permite buscas, inserções e percursos eficientes.
+ * 
+ * Funcionalidades principais:
+ * - Inserir uma palavra na árvore ou atualizar sua lista de ocorrências caso já exista.
+ * - Buscar uma palavra específica na árvore, retornando seu objeto Palavra com as linhas onde aparece.
+ * - Percorrer a árvore em ordem (in-order), aplicando uma ação (Consumer) para cada palavra.
+ * 
+ * Esta estrutura é usada internamente na TabelaHash para armazenar as palavras de forma ordenada
+ * e facilitar a recuperação e geração do índice remissivo.
  */
+
 public class ArvoreBinariaBusca {
     private NoArvore raiz;
 
-    /**
-     * Construtor que inicializa uma árvore vazia.
-     */
     public ArvoreBinariaBusca() {
         this.raiz = null;
     }
 
-    /**
-     * Insere uma palavra na árvore ou adiciona uma ocorrência se a palavra já existir.
-     * @param palavra Palavra a ser inserida
-     * @param linha Linha onde a palavra ocorre
-     */
+    // Insere uma nova palavra ou atualiza suas ocorrências se já existir
+    // Se a palavra já existir na árvore, a linha é adicionada à lista de
+    // ocorrências.
     public void inserir(String palavra, int linha) {
         if (palavra == null || palavra.isEmpty()) {
             return;
         }
 
         Palavra novaPalavra = new Palavra(palavra, linha);
-        
+
         if (raiz == null) {
             raiz = new NoArvore(novaPalavra);
             return;
         }
-        
+
         inserirRecursivo(raiz, novaPalavra);
     }
 
-    /**
-     * Método auxiliar recursivo para inserção de palavras na árvore.
-     * @param no Nó atual
-     * @param novaPalavra Palavra a ser inserida
-     */
+    // Método recursivo que percorre a árvore para encontrar posição de inserção
     private void inserirRecursivo(NoArvore no, Palavra novaPalavra) {
         int comparacao = novaPalavra.getPalavra().compareTo(no.getPalavra().getPalavra());
-        
+
         if (comparacao == 0) {
             // A palavra já existe, adiciona a ocorrência
             no.getPalavra().adicionarOcorrencia(novaPalavra.getOcorrencias().obter(0));
@@ -64,28 +69,19 @@ public class ArvoreBinariaBusca {
         }
     }
 
-    /**
-     * Busca uma palavra na árvore.
-     * @param palavra Palavra a ser buscada
-     * @return A palavra encontrada ou null se não existir
-     */
+    // Busca uma palavra na árvore
     public Palavra buscar(String palavra) {
         return buscarRecursivo(raiz, palavra);
     }
 
-    /**
-     * Método auxiliar recursivo para busca de palavras na árvore.
-     * @param no Nó atual
-     * @param palavra Palavra a ser buscada
-     * @return A palavra encontrada ou null se não existir
-     */
+    // Método recursivo auxiliar para buscar a palavra na árvore.
     private Palavra buscarRecursivo(NoArvore no, String palavra) {
         if (no == null) {
             return null;
         }
-        
+
         int comparacao = palavra.compareTo(no.getPalavra().getPalavra());
-        
+
         if (comparacao == 0) {
             return no.getPalavra();
         } else if (comparacao < 0) {
@@ -95,28 +91,19 @@ public class ArvoreBinariaBusca {
         }
     }
 
-    /**
-     * Verifica se a árvore contém uma palavra.
-     * @param palavra Palavra a ser verificada
-     * @return true se a palavra estiver na árvore, false caso contrário
-     */
     public boolean contem(String palavra) {
         return buscar(palavra) != null;
     }
 
-    /**
-     * Percorre a árvore em ordem (in-order) aplicando uma ação a cada palavra.
-     * @param acao Ação a ser aplicada a cada palavra
-     */
+    // Percorre a árvore em ordem (in-order) e executa a ação fornecida para cada
+    // palavra.
+
     public void percorrerEmOrdem(Consumer<Palavra> acao) {
         percorrerEmOrdemRecursivo(raiz, acao);
     }
 
-    /**
-     * Método auxiliar recursivo para percorrer a árvore em ordem.
-     * @param no Nó atual
-     * @param acao Ação a ser aplicada a cada palavra
-     */
+    // Método recursivo auxiliar para percorrer a árvore em ordem.
+
     private void percorrerEmOrdemRecursivo(NoArvore no, Consumer<Palavra> acao) {
         if (no != null) {
             percorrerEmOrdemRecursivo(no.getEsquerda(), acao);
@@ -125,10 +112,6 @@ public class ArvoreBinariaBusca {
         }
     }
 
-    /**
-     * Verifica se a árvore está vazia.
-     * @return true se a árvore estiver vazia, false caso contrário
-     */
     public boolean estaVazia() {
         return raiz == null;
     }
