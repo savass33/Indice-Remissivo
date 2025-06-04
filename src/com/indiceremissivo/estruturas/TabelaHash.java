@@ -1,6 +1,8 @@
 package com.indiceremissivo.estruturas;
 
 import com.indiceremissivo.model.Palavra;
+import com.indiceremissivo.util.ProcessadorTexto;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -148,14 +150,13 @@ public class TabelaHash {
      */
     public List<Palavra> gerarIndiceRemissivo(List<String> palavrasChave) {
         List<Palavra> indice = new ArrayList<>();
-
         for (String palavraChave : palavrasChave) {
-            Palavra palavra = buscar(palavraChave);
+            String palavraNormalizada = ProcessadorTexto.limparPalavra(palavraChave); // Normaliza aqui!
+            Palavra palavra = buscar(palavraNormalizada);
             if (palavra != null) {
                 indice.add(palavra);
             }
         }
-
         return indice;
     }
 }
