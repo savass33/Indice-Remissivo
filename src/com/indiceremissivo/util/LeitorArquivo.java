@@ -10,7 +10,6 @@ import java.util.List;
  * Utilitário para leitura de arquivos texto.
  * Possui métodos para ler linhas genéricas e listas de palavras-chave.
  */
-
 public class LeitorArquivo {
 
     /**
@@ -20,12 +19,13 @@ public class LeitorArquivo {
      * @return Lista de linhas do arquivo.
      * @throws IOException Em caso de erro na leitura.
      */
-
     public static List<String> lerLinhas(String caminhoArquivo) throws IOException {
         List<String> linhas = new ArrayList<>();
 
+        // try-with-resources para garantir fechamento do BufferedReader
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
+            // Lê linha a linha até o fim do arquivo
             while ((linha = reader.readLine()) != null) {
                 linhas.add(linha);
             }
@@ -42,15 +42,14 @@ public class LeitorArquivo {
      * @return Lista de palavras-chave.
      * @throws IOException Em caso de erro na leitura.
      */
-
     public static List<String> lerPalavrasChave(String caminhoArquivo) throws IOException {
         List<String> palavrasChave = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                linha = linha.trim();
-                if (!linha.isEmpty()) {
+                linha = linha.trim(); // Remove espaços antes e depois
+                if (!linha.isEmpty()) { // Ignora linhas em branco
                     palavrasChave.add(linha);
                 }
             }
