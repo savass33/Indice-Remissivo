@@ -1,7 +1,6 @@
 package com.indiceremissivo.estruturas;
 
 import com.indiceremissivo.model.Palavra;
-import java.util.function.Consumer;
 
 /**
  * Classe que representa um nó da árvore binária de busca.

@@ -7,7 +7,6 @@ import com.indiceremissivo.util.LeitorArquivo;
 import com.indiceremissivo.util.ProcessadorTexto;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
