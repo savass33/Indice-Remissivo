@@ -1,7 +1,5 @@
 package com.indiceremissivo.util;
 
-import java.text.Normalizer;
-
 /**
  * Utilitário para processamento de texto,
  * como limpeza e divisão de linhas em palavras.
@@ -9,26 +7,9 @@ import java.text.Normalizer;
 public class ProcessadorTexto {
 
     /**
-     * Normaliza uma palavra removendo acentos e caracteres especiais,
-     * convertendo para minúsculas e mantendo apenas letras e hífens.
-     * 
-     * @param palavra Palavra original.
-     * @return Palavra normalizada.
-     */
-    private static String normalizarPalavra(String palavra) {
-        if (palavra == null || palavra.isEmpty()) {
-            return "";
-        }
-
-        return Normalizer.normalize(palavra, Normalizer.Form.NFD)
-                .replaceAll("[^a-zA-Z-]", "") // Remove tudo exceto letras e hífens
-                .toLowerCase(); // Converte para minúsculo
-    }
-
-    /**
-     * Limpa uma palavra removendo espaços, pontuações, caracteres especiais
-     * e acentos, além de converter para minúsculas.
-     * 
+     * Limpa uma palavra removendo espaços, pontuações e caracteres especiais,
+     * mas **mantém acentos** e converte para minúsculas.
+     *
      * @param palavra Palavra original.
      * @return Palavra limpa e normalizada, pronta para indexação.
      */
@@ -37,11 +18,12 @@ public class ProcessadorTexto {
             return "";
         }
 
-        // Aplica normalização primeiro (remove acentos e caracteres especiais)
-        String palavraLimpa = normalizarPalavra(palavra);
+        // Remove caracteres que não sejam letras (inclusive acentuadas) ou hífen
+        String palavraLimpa = palavra.trim()
+                .replaceAll("[^\\p{L}-]", "") // Mantém letras Unicode e hífen
+                .toLowerCase();
 
-        // Remove pontuação no final da palavra (para casos não tratados pela
-        // normalização)
+        // Remove pontuação no final da palavra
         while (!palavraLimpa.isEmpty() && !Character.isLetterOrDigit(palavraLimpa.charAt(palavraLimpa.length() - 1))) {
             palavraLimpa = palavraLimpa.substring(0, palavraLimpa.length() - 1);
         }
@@ -56,7 +38,7 @@ public class ProcessadorTexto {
 
     /**
      * Divide uma linha de texto em palavras, separando por espaços em branco.
-     * 
+     *
      * @param linha Linha de texto.
      * @return Array de palavras.
      */
