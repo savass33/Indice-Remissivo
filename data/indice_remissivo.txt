@@ -1,7 +1,10 @@
-ambiente: 3, 5
-cidade: 7
-meio: 5
-otima: 6
+ambiente: 3, 7
+cidade: 9
+coco: 5
+cocô: 6
+meio: 7
 parque: 1
-savas: 5
-transito: 3
+savas: 7
+trânsito: 3
+ótima: 8
+ótimo: 2

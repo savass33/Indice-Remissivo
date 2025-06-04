@@ -6,7 +6,10 @@ parque
 flor
 meio
 rua
+ótimo
+coco
 cidade
+cocô
 trânsito
 savas
 ótima
