@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Indice-Remissivo
 Projeto para AV3 de Estrutura de Dados
 =======
@@ -54,4 +53,3 @@ Esta versão foi reestruturada para não depender de ferramentas de build como o
 java -cp bin com.indiceremissivo.main.IndiceRemissivo /caminho/completo/texto.txt /caminho/completo/palavras_chave.txt /caminho/completo/saida.txt
 ```
 
->>>>>>> d17e0f9 (.)
