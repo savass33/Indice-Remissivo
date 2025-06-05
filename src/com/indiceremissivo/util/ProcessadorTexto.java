@@ -37,6 +37,7 @@ public class ProcessadorTexto {
     }
 
     // Divide uma linha de texto em palavras, separando por espaços em branco.
+
     public static String[] dividirEmPalavras(String linha) {
         if (linha == null || linha.isEmpty()) {
             return new String[0];
